@@ -27,3 +27,7 @@
 9. **Storage (fase 2)**: bucket privado `attachments` para adjuntos (URLs firmadas).
 
 > El envío de emails de Supabase en el plan gratis tiene un límite bajo por hora. Para producción configura SMTP propio (Authentication → Emails → SMTP), por ejemplo con Resend, que ya está previsto para la fase 3.
+
+## Hosting en Render (plan gratis)
+
+`render.yaml` define el servicio. En Render: **New → Blueprint** → repo `NoAgency` → rama de trabajo → completa `SUPABASE_SERVICE_ROLE_KEY` y `DATABASE_URL` (Transaction pooler, 6543) → **Apply**. URL: `https://noagency-os.onrender.com` (si Render asigna otra, actualiza `NEXT_PUBLIC_SITE_URL` en Render y la _Site URL_ / _Redirect URLs_ de Supabase). En el plan gratis el servicio se duerme tras ~15 min sin uso.

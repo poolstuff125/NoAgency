@@ -1,0 +1,25 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Render → New → Blueprint → este repositorio. Pide los valores marcados sync: false.
+services:
+  - type: web
+    name: noagency-os
+    runtime: node
+    plan: free
+    region: ohio # misma zona que Supabase (us-east-2)
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: https://lrutzrtatsznqmlafgfl.supabase.co
+      - key: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+        value: sb_publishable_AR2GLOjTvRSmdCRo3DXKDg_zNY8dZ7q
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://noagency-os.onrender.com
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
