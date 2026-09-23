@@ -18,12 +18,19 @@ const envSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
 });
 
-export const env = envSchema.parse({
+const parsed = envSchema.safeParse({
   ...process.env,
   // Supabase now calls the anon key "publishable key"; accept either name.
   NEXT_PUBLIC_SUPABASE_ANON_KEY:
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
 });
+if (!parsed.success) {
+  // Name the broken variables (never their values) so deploy logs are actionable.
+  const variables = [...new Set(parsed.error.issues.map((i) => i.path.join(".")))].join(", ");
+  throw new Error(`Variables de entorno inválidas: ${variables}`);
+}
+
+export const env = parsed.data;
 
 export function supabaseConfigurado() {
   return Boolean(env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
