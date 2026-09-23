@@ -18,7 +18,12 @@ const envSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
 });
 
-export const env = envSchema.parse(process.env);
+export const env = envSchema.parse({
+  ...process.env,
+  // Supabase now calls the anon key "publishable key"; accept either name.
+  NEXT_PUBLIC_SUPABASE_ANON_KEY:
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+});
 
 export function supabaseConfigurado() {
   return Boolean(env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
