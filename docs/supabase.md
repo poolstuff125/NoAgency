@@ -3,15 +3,15 @@
 1. **Proyecto**: crea un proyecto en Supabase (región más cercana: `us-east-1`).
 2. **Variables** (Project Settings → API y botón **Connect**). Ponlas en `.env.local` (local) y en Netlify (producción):
 
-   | Variable                        | Dónde                                                    |
-   | ------------------------------- | -------------------------------------------------------- |
-   | `NEXT_PUBLIC_SUPABASE_URL`      | Project URL                                              |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | clave `anon` (o _publishable_)                           |
-   | `SUPABASE_SERVICE_ROLE_KEY`     | clave `service_role` (o _secret_). Solo servidor         |
-   | `DATABASE_URL`                  | Connect → Transaction pooler (puerto 6543)               |
-   | `DATABASE_URL_DIRECT`           | Connect → Session pooler (puerto 5432), para migraciones |
-   | `NEXT_PUBLIC_SITE_URL`          | URL pública de la app (p. ej. `https://os.noagency.ec`)  |
-   | `ADMIN_EMAIL`                   | email de Paul, solo para el seed                         |
+   | Variable                                                                   | Dónde                                                    |
+   | -------------------------------------------------------------------------- | -------------------------------------------------------- |
+   | `NEXT_PUBLIC_SUPABASE_URL`                                                 | Project URL                                              |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` (o `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) | clave `anon` o _publishable_ (`sb_publishable_…`)        |
+   | `SUPABASE_SERVICE_ROLE_KEY`                                                | clave `service_role` (o _secret_). Solo servidor         |
+   | `DATABASE_URL`                                                             | Connect → Transaction pooler (puerto 6543)               |
+   | `DATABASE_URL_DIRECT`                                                      | Connect → Session pooler (puerto 5432), para migraciones |
+   | `NEXT_PUBLIC_SITE_URL`                                                     | URL pública de la app (p. ej. `https://os.noagency.ec`)  |
+   | `ADMIN_EMAIL`                                                              | email de Paul, solo para el seed                         |
 
 3. **Registro cerrado**: Authentication → Sign In / Providers → Email: desactiva **Allow new users to sign up**. Las invitaciones del admin siguen funcionando.
 4. **URLs**: Authentication → URL Configuration → _Site URL_ = `NEXT_PUBLIC_SITE_URL`; agrega `http://localhost:3000/**` y la URL de producción a _Redirect URLs_.
