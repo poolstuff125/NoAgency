@@ -1,0 +1,42 @@
+name: Base de datos
+
+# Ejecución manual: GitHub → Actions → "Base de datos" → Run workflow.
+# Usa los secrets del repositorio (Settings → Secrets and variables → Actions).
+on:
+  workflow_dispatch:
+    inputs:
+      accion:
+        description: "Qué hacer"
+        type: choice
+        required: true
+        default: migrar
+        options:
+          - migrar
+          - migrar-y-crear-admin
+
+jobs:
+  base-de-datos:
+    runs-on: ubuntu-latest
+    env:
+      # Session pooler (puerto 5432): sirve para migraciones y para el seed.
+      DATABASE_URL_DIRECT: ${{ secrets.DATABASE_URL_DIRECT }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL_DIRECT }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verificar secrets
+        run: |
+          test -n "$DATABASE_URL_DIRECT" || { echo "::error::Falta el secret DATABASE_URL_DIRECT"; exit 1; }
+      - name: Aplicar migraciones
+        run: npm run db:migrate
+      - name: Crear admin (Paul Bayas)
+        if: inputs.accion == 'migrar-y-crear-admin'
+        run: npm run seed:admin
