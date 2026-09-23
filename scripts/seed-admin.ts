@@ -25,7 +25,8 @@ const env = z
     PGLITE_DIR: z.string().optional(),
     NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
   })
-  .parse(process.env);
+  // Empty variables (e.g. a missing GitHub secret) count as unset.
+  .parse(Object.fromEntries(Object.entries(process.env).filter(([, v]) => v !== "")));
 
 const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false },
