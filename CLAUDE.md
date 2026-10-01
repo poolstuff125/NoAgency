@@ -84,6 +84,7 @@ Configuración paso a paso en [`docs/supabase.md`](docs/supabase.md). Variables 
 - Textos de UI en español neutro. Identificadores del dominio en español como la spec (`tareas`, `clienteId`, `crearTarea`); comentarios y utilidades genéricas pueden ir en inglés.
 - Mutaciones: server action → `ejecutarAccion()` → servicio. Errores para el usuario con `ErrorDominio` (mensaje en español); el resto se loguea y se muestra un mensaje genérico.
 - Cada cambio de comportamiento lleva test (unit en el mismo directorio, `*.test.ts(x)`; flujos de usuario en `e2e/`).
+- Todo trabajo de interfaz (pantallas, componentes, estilos, animaciones) usa `/impeccable` y `/emil-design-eng`; para rediseñar una pantalla existente, también `/redesign-skill`. `/taste-skill` solo para páginas de marketing o landing.
 - Antes de dar algo por terminado: `npm run check`. Si tocas rutas o UI, también `npm run build`.
 - No commitees `.env*` (excepto `.env.example`).
 
