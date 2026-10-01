@@ -5,3 +5,9 @@ package-lock.json
 playwright-report
 test-results
 .pglite
+
+# Third-party design skills (vendored as-is)
+.claude/skills/impeccable
+.claude/skills/emil-design-eng
+.claude/skills/taste-skill
+.claude/skills/redesign-skill

@@ -95,4 +95,4 @@ Configuración paso a paso en [`docs/supabase.md`](docs/supabase.md). Variables 
 - `test-engineer` — Vitest y Playwright.
 - `code-reviewer` — revisión de diffs antes de commit/PR (solo lectura).
 
-Skills: `/check`, `/api-route`, `/db-change`. Plugins en `.claude/settings.json`.
+Skills: `/check`, `/api-route`, `/db-change`. Diseño (de terceros, sin modificar; excluidas de lint/prettier): `/impeccable` (pbakaus/impeccable), `/emil-design-eng` (emilkowalski/skill), `/taste-skill` y `/redesign-skill` (Leonxlnx/taste-skill). Plugins en `.claude/settings.json`.
